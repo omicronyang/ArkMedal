@@ -128,7 +128,7 @@ namespace ArkMedal
         public void SearchDefFile()
         {
             label1.Text = workdir;
-            Text = "ArkMedal - " + workdir;
+            Text = "ArkMedal " + Application.ProductVersion + " - " + workdir;
 
             StatusLabel1.Text = "扫描定义文件...";
 
