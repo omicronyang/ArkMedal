@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WK.Libraries.BetterFolderBrowserNS;
+using System.Windows.Documents;
 
 namespace ArkMedal
 {
@@ -32,6 +33,17 @@ namespace ArkMedal
             lstFiles.DisplayMember = "File";
             lstErr.Items.Clear();
             btnSave.Enabled = false;
+            pnlAbout.Dock = DockStyle.Fill;
+            pnlAbout.Visible = false;
+
+            setAboutText();
+        }
+
+        private void setAboutText()
+        {
+            lblVersion.Text = "v" + Application.ProductVersion;
+            linkLabel1.Links.Add(5,linkLabel1.Text.Length, @"https://github.com/omicronyang/ArkMedal");
+
         }
 
         public void ChangeWorkDir(string newdir)
@@ -68,6 +80,11 @@ namespace ArkMedal
         public void HandleDef(JObject def)
         {
             StatusLabel1.Text = "读取定义文件...";
+
+            if (!def.ContainsKey("_groupId"))
+            {
+                StatusLabel1.Text = "非定义文件...";
+            }
 
             string bkgname = def["_groupId"].ToString() + ".png";
             textBox1.Text = def["_groupId"].ToString();
@@ -120,6 +137,7 @@ namespace ArkMedal
                 }
             }
             pictureBox1.Image = bkgimg;
+            gpbHelp.Visible = false;
             //bkgimg.Dispose();
             StatusLabel1.Text = "就绪";
             btnSave.Enabled = !(errcount == arr_medal.Count());
@@ -144,7 +162,16 @@ namespace ArkMedal
                 files = di.GetFiles("*.json");
                 foreach (FileInfo fi in files)
                 {
-                    lstDef.Items.Add(fi.Name);
+                    using (StreamReader file = File.OpenText(fi.FullName))
+                    {
+                        using (JsonTextReader reader = new JsonTextReader(file))
+                        {
+                            JObject o = (JObject)JToken.ReadFrom(reader);
+                            //return o;
+                            if (o.ContainsKey("_groupId") && o.ContainsKey("_medalPosList"))
+                                lstDef.Items.Add(fi.Name);
+                        }
+                    }
                 }
                 StatusLabel1.Text = "就绪";
             }
@@ -195,6 +222,28 @@ namespace ArkMedal
 
         }
 
+        private void menuAbout_Click(object sender, EventArgs e)
+        {
+            pnlAbout.Visible = true;
+            StatusLabel1.Text = "点击空白处返回";
+        }
+
+        private void pnlAbout_Click(object sender, EventArgs e)
+        {
+            pnlAbout.Visible = false;
+            StatusLabel1.Text = "就绪";
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"https://github.com/omicronyang/ArkMedal");
+        }
+
+        private void menuHelp_Click(object sender, EventArgs e)
+        {
+            gpbHelp.Visible = true;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string savename = "蚀刻章套组 " + textBox1.Text;
@@ -220,9 +269,12 @@ namespace ArkMedal
 
         private void lstDef_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string defFile = defpath + "/" +  lstDef.SelectedItem.ToString();
-            defjson = ReadJsonFile(defFile);
-            HandleDef(defjson);
+            if (lstDef.SelectedIndex >= 0)
+            {
+                string defFile = defpath + "/" + lstDef.SelectedItem.ToString();
+                defjson = ReadJsonFile(defFile);
+                HandleDef(defjson);
+            }
         }
     }
 }

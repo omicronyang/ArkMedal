@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.btnSave = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lstDef = new System.Windows.Forms.ListBox();
@@ -49,12 +50,22 @@
             this.sfd = new System.Windows.Forms.SaveFileDialog();
             this.bfb = new WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRefreshDef = new System.Windows.Forms.Button();
             this.btnRefreshPng = new System.Windows.Forms.Button();
             this.lstErr = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.pnlAbout = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.gpbHelp = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -63,6 +74,8 @@
             this.statusStrip1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.pnlAbout.SuspendLayout();
+            this.gpbHelp.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSave
@@ -129,6 +142,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.gpbHelp);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Location = new System.Drawing.Point(368, 28);
             this.groupBox1.Name = "groupBox1";
@@ -286,25 +300,27 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.帮助ToolStripMenuItem,
-            this.关于ToolStripMenuItem});
+            this.menuHelp,
+            this.menuAbout});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(984, 25);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // 帮助ToolStripMenuItem
+            // menuHelp
             // 
-            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.帮助ToolStripMenuItem.Text = "帮助";
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(44, 21);
+            this.menuHelp.Text = "帮助";
+            this.menuHelp.Click += new System.EventHandler(this.menuHelp_Click);
             // 
-            // 关于ToolStripMenuItem
+            // menuAbout
             // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.关于ToolStripMenuItem.Text = "关于";
+            this.menuAbout.Name = "menuAbout";
+            this.menuAbout.Size = new System.Drawing.Size(44, 21);
+            this.menuAbout.Text = "关于";
+            this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
             // 
             // btnRefreshDef
             // 
@@ -328,8 +344,7 @@
             // 
             // lstErr
             // 
-            this.lstErr.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lstErr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstErr.CausesValidation = false;
             this.lstErr.ForeColor = System.Drawing.Color.Red;
@@ -363,6 +378,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.Location = new System.Drawing.Point(3, 173);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(203, 16);
@@ -370,11 +386,129 @@
             this.label4.Text = "错误：";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // pnlAbout
+            // 
+            this.pnlAbout.Controls.Add(this.label6);
+            this.pnlAbout.Controls.Add(this.linkLabel1);
+            this.pnlAbout.Controls.Add(this.lblVersion);
+            this.pnlAbout.Controls.Add(this.label5);
+            this.pnlAbout.Location = new System.Drawing.Point(0, 600);
+            this.pnlAbout.Name = "pnlAbout";
+            this.pnlAbout.Size = new System.Drawing.Size(960, 530);
+            this.pnlAbout.TabIndex = 14;
+            this.pnlAbout.Click += new System.EventHandler(this.pnlAbout_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Consolas", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(12, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(312, 75);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "ArkMedal";
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(330, 46);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(143, 37);
+            this.lblVersion.TabIndex = 1;
+            this.lblVersion.Text = "Version";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("微软雅黑", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkLabel1.Location = new System.Drawing.Point(20, 145);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(580, 30);
+            this.linkLabel1.TabIndex = 2;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "项目地址：https://github.com/omicronyang/ArkMedal";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(18, 94);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(498, 41);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "明日方舟蚀刻章套组图片合成工具\r\n";
+            // 
+            // gpbHelp
+            // 
+            this.gpbHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpbHelp.Controls.Add(this.label10);
+            this.gpbHelp.Controls.Add(this.label8);
+            this.gpbHelp.Controls.Add(this.label9);
+            this.gpbHelp.Controls.Add(this.label7);
+            this.gpbHelp.Location = new System.Drawing.Point(0, 0);
+            this.gpbHelp.Name = "gpbHelp";
+            this.gpbHelp.Size = new System.Drawing.Size(604, 529);
+            this.gpbHelp.TabIndex = 8;
+            this.gpbHelp.TabStop = false;
+            this.gpbHelp.Text = "帮助";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Location = new System.Drawing.Point(6, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(592, 44);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "设置为 AssetStudio 的导出目录，所需资源在 AssetStudio 中导出后此目录内应有 Sprite 和 MonoBehaviour 两个文件夹";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.Location = new System.Drawing.Point(6, 66);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(592, 134);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "在 AssetStudio 中打开包 Android/ui/medal/groupframe.ab\r\n选择其中的 UIMedalGroupFrame 文件（类型为" +
+    "MonoBehaviour）导出（每套组对应一个该文件）\r\n\r\n· 导出后左侧如无变化请手动刷新，此列表文件应在工作目录下 MonoBehaviour 文件夹内" +
+    "\r\n· 选择文件后在右侧即可查看预览";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Location = new System.Drawing.Point(6, 201);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(592, 262);
+            this.label8.TabIndex = 10;
+            this.label8.Text = resources.GetString("label8.Text");
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.Location = new System.Drawing.Point(6, 483);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(592, 40);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "输入蚀刻章套组名称。默认为背景图名称";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 582);
+            this.Controls.Add(this.pnlAbout);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -383,6 +517,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "FormMain";
             this.Text = "FormMain";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -398,6 +533,9 @@
             this.groupBox5.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.pnlAbout.ResumeLayout(false);
+            this.pnlAbout.PerformLayout();
+            this.gpbHelp.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,12 +563,22 @@
         private System.Windows.Forms.SaveFileDialog sfd;
         private WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser bfb;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuHelp;
+        private System.Windows.Forms.ToolStripMenuItem menuAbout;
         private System.Windows.Forms.Button btnRefreshDef;
         private System.Windows.Forms.Button btnRefreshPng;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox lstErr;
+        private System.Windows.Forms.Panel pnlAbout;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.GroupBox gpbHelp;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 
